@@ -4,7 +4,6 @@
 #include <chrono>
 #include <thread>
 
-// TODO: Return the aggregate CPU utilization
 float Processor::Utilization() { 
 
     long total = LinuxParser::Jiffies();
