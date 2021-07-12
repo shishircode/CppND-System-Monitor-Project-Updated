@@ -100,7 +100,7 @@ float LinuxParser::MemoryUtilization() {
   }
     }
   }
-  return (mem_total - mem_free)*100.0/mem_total; 
+  return (mem_total - mem_free)/mem_total; 
   }
 
 // TODO: Read and return the system uptime
@@ -198,7 +198,7 @@ int LinuxParser::RunningProcesses() {
 // TODO: Read and return the command associated with a process
 string LinuxParser::Command(int pid) {
   string val;
-  std::ifstream filestream(kProcDirectory +std::to_string(pid)+kStatFilename);
+  std::ifstream filestream(kProcDirectory +std::to_string(pid)+kCmdlineFilename);
   if(filestream.is_open()){
     std::getline(filestream, val);
   }

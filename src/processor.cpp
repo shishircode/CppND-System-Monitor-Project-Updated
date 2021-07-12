@@ -15,6 +15,6 @@ float Processor::Utilization() {
     float totald =  LinuxParser::Jiffies() - total; 
     float idled =  LinuxParser::IdleJiffies() - idle;
 
-    float cpu_percentage = 100.0 * (totald - idled)/totald;
+    float cpu_percentage = (totald - idled)/totald;
     return cpu_percentage;
  }
