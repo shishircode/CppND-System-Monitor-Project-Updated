@@ -112,7 +112,13 @@ long LinuxParser::UpTime() {
     linestream >> uptime;
     stream.close();
   }
-  return std::stol(uptime);
+  if (uptime != "") 
+    return std::stol(uptime);
+  else
+  {
+    return 0;
+  }
+  
 }
 
 long LinuxParser::Jiffies() { return ActiveJiffies() + IdleJiffies(); }
@@ -201,7 +207,7 @@ string LinuxParser::Command(int pid) {
 
 string LinuxParser::Ram(int pid) { 
   string ram = GetValue("VmRSS:", kProcDirectory+std::to_string(pid)+kStatusFilename); // Replacing VmSize with VmRSS as that is the actual physical Memory size.
-  if (std::all_of(ram.begin(), ram.end(), ::isdigit) && ram != "")
+  if (ram != "" && std::all_of(ram.begin(), ram.end(), ::isdigit))
     return std::to_string(stol(ram)/1024);
   else
   {
@@ -243,7 +249,7 @@ long LinuxParser::UpTime(int pid) {
     }
     filestream.close();
   }
-  if (values.size() > 21)
+  if (values.size() > 21 && values[21] != "")
     return UpTime() - std::stol(values[21])/sysconf(_SC_CLK_TCK);
   else
   {
