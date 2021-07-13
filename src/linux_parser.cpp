@@ -201,7 +201,7 @@ string LinuxParser::Command(int pid) {
 
 string LinuxParser::Ram(int pid) { 
   string ram = GetValue("VmRSS:", kProcDirectory+std::to_string(pid)+kStatusFilename); // Replacing VmSize with VmRSS as that is the actual physical Memory size.
-  if (std::all_of(ram.begin(), ram.end(), ::isdigit))
+  if (std::all_of(ram.begin(), ram.end(), ::isdigit) && ram != "")
     return std::to_string(stol(ram)/1024);
   else
   {
