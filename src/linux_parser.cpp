@@ -187,12 +187,23 @@ vector<string> LinuxParser::CpuUtilization() {
 
 int LinuxParser::TotalProcesses() { 
   string num = GetValue("processes", kProcDirectory+kStatFilename);
-  return std::stoi(num);
+  if (num != "" && std::all_of(num.begin(), num.end(), ::isdigit))
+    return std::stoi(num);
+  else
+  {
+    return 0;
+  }
  }
 
 int LinuxParser::RunningProcesses() {
   string num = GetValue("procs_running", kProcDirectory+kStatFilename);
-  return std::stoi(num);
+  if (num != "" && std::all_of(num.begin(), num.end(), ::isdigit))
+    return std::stoi(num);
+  else
+  {
+    return 0;
+  }
+  
  }
 
 string LinuxParser::Command(int pid) {
